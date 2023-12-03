@@ -12,13 +12,15 @@ import jakarta.validation.Payload;
 
 @Target({ TYPE_USE })
 @Retention(RUNTIME)
-@Constraint(validatedBy = BrokerNotesCompraOuVendaValidator.class)
+@Constraint(validatedBy = BrokerNoteIdRequiredValidator.class)
 @Documented
-public @interface BrokerNotesCompraOuVenda {
+public @interface BrokerNoteIdRequired {
 
-    String message() default "{Broker Note is mandatory in transaction types COMPRA and VENDA}";
+    String message() default "{Broker Note is mandatory in transaction types {transactionType.toString()}}";
 
     Class<?>[] groups() default { };
 
     Class<? extends Payload>[] payload() default { };
+
+    String[] transactionType();
 }

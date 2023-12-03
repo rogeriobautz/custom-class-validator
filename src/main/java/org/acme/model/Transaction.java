@@ -1,21 +1,20 @@
 package org.acme.model;
 
-import jakarta.validation.constraints.NotBlank;
+import org.acme.validator.BrokerNoteIdRequired;
+import org.acme.validator.EnumValue;
 
-import org.acme.validator.BrokerNotesCompraOuVenda;
-
-@BrokerNotesCompraOuVenda
+@BrokerNoteIdRequired(transactionType={"COMPRA","VENDA"})
 public class Transaction {
-    private String brokerNotes;
+    private String brokerNoteId;
 
-    @NotBlank
+    @EnumValue(enumClass=EnumTransactionType.class)
     private String transactionType;
 
-    public String getBrokerNotes() {
-        return brokerNotes;
+    public String getBrokerNoteId() {
+        return brokerNoteId;
     }
-    public void setBrokerNotes(String brokerNotes) {
-        this.brokerNotes = brokerNotes;
+    public void setBrokerNoteId(String brokerNotes) {
+        this.brokerNoteId = brokerNotes;
     }
     public String getTransactionType() {
         return transactionType;
