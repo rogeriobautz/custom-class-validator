@@ -1,7 +1,10 @@
 package org.acme.model;
 
+import org.acme.enums.EnumTransactionType;
 import org.acme.validator.BrokerNoteIdRequired;
 import org.acme.validator.EnumValue;
+
+import jakarta.validation.constraints.NotEmpty;
 
 @BrokerNoteIdRequired(transactionType={"COMPRA","VENDA"})
 public class Transaction {
@@ -10,6 +13,15 @@ public class Transaction {
     @EnumValue(enumClass=EnumTransactionType.class)
     private String transactionType;
 
+    @NotEmpty
+    private String transactionName;
+
+    public String getTransactionName() {
+        return transactionName;
+    }
+    public void setTransactionName(String transactionName) {
+        this.transactionName = transactionName;
+    }
     public String getBrokerNoteId() {
         return brokerNoteId;
     }

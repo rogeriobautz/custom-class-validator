@@ -1,4 +1,4 @@
-package org.acme.model;
+package org.acme.enums;
 
 public enum EnumTransactionType {
     COMPRA,
