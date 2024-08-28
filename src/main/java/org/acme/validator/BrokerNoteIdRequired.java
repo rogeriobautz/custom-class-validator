@@ -18,9 +18,9 @@ public @interface BrokerNoteIdRequired {
 
     String message() default "{Broker Note is mandatory in transaction types {transactionType.toString()}}";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 
     String[] transactionType();
 }

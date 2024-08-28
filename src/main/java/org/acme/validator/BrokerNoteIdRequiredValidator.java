@@ -24,9 +24,11 @@ public class BrokerNoteIdRequiredValidator implements ConstraintValidator<Broker
             return true;
         }
 
-        if(!transaction.getBrokerNoteId().matches("^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$") || transaction.getBrokerNoteId().length() > 100){
+        if (!transaction.getBrokerNoteId().matches("^[a-zA-Z0-9][a-zA-Z0-9-]{0,99}$")
+                || transaction.getBrokerNoteId().length() > 100) {
             constraintContext.disableDefaultConstraintViolation();
-            constraintContext.buildConstraintViolationWithTemplate("Broker Note Id format is wrong").addConstraintViolation();
+            constraintContext.buildConstraintViolationWithTemplate("Broker Note Id format is wrong")
+                    .addConstraintViolation();
             return false;
         }
 

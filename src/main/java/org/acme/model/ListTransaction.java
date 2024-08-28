@@ -3,9 +3,11 @@ package org.acme.model;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.validation.Valid;
+
 public class ListTransaction {
     private String userName;
-    private List<Transaction> resources = new ArrayList<>() ;
+    private List<@Valid Transaction> resources = new ArrayList<>() ;
 
     public String getUserName() {
         return userName;

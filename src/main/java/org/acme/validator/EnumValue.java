@@ -19,9 +19,9 @@ public @interface EnumValue {
 
     String message() default "{The value is not contained inside the Enum}";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 
     Class<? extends Enum<?>> enumClass();
 }

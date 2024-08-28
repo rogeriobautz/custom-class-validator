@@ -1,18 +1,31 @@
 package org.acme.app;
 
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+
 import java.util.Set;
 
 import jakarta.inject.Inject;
+import jakarta.validation.ConstraintValidator;
+import jakarta.validation.ConstraintValidatorContext;
 import jakarta.validation.ConstraintViolation;
-
+import io.quarkus.test.InjectMock;
+import io.quarkus.test.Mock;
 import io.quarkus.test.junit.QuarkusTest;
+import io.quarkus.test.junit.mockito.InjectSpy;
 
 import org.acme.model.ListTransaction;
 import org.acme.model.Transaction;
 import org.acme.service.ValidateService;
+import org.acme.validator.BrokerNoteIdRequired;
+import org.acme.validator.EnumValue;
+import org.glassfish.jaxb.runtime.v2.schemagen.xmlschema.List;
+import org.junit.Before;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+import org.mockito.Spy;
 
 @QuarkusTest
 public class AppTest {
@@ -38,7 +51,7 @@ public class AppTest {
         transaction.setBrokerNoteId(null);
         transaction.setTransactionType("DIVIDENDOS");
         response = validateService.validateTransaction(transaction);
-        Assertions.assertEquals(true, response.isValid());;
+        Assertions.assertEquals(true, response.isValid());
     }
 
     @Test
@@ -67,6 +80,7 @@ public class AppTest {
         Assertions.assertEquals(false, response.isValid());
 
     }
+
     @Test
     void shouldValidateListTransaction() {
         transaction.setBrokerNoteId("XWYZ555019929279212650822221989319252233");
@@ -79,7 +93,7 @@ public class AppTest {
         transaction.setTransactionType("VENDA");
         listTransaction.addResource(transaction);
 
-        for(var tr:listTransaction.getResources()){
+        for (var tr : listTransaction.getResources()) {
             var response = validateService.validateTransaction(tr);
             Assertions.assertEquals(true, response.isValid());
         }
@@ -100,12 +114,8 @@ public class AppTest {
         listTransaction.addResource(transaction);
 
         Set<ConstraintViolation<ListTransaction>> errors = validateService.validateListTransaction(listTransaction);
-        Assertions.assertEquals(0, errors.size());
+        Assertions.assertEquals(1, errors.size());
 
-        for(var tr:listTransaction.getResources()){
-            var response = validateService.validateTransaction(tr);
-            Assertions.assertEquals(false, response.isValid());
-        }
     }
 
 }
